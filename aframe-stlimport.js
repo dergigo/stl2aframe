@@ -56,34 +56,36 @@ function Stl2Aframe(containerId) {
 			facets[i] = facets[i].replace(/^vertex /gm, "");
 			facets[i] = facets[i].replace(/^\n/gm, "");
 			facets[i] = facets[i].replace(/\n$/, "");
+
 			
 			var a = Array();
 			
 			var points = facets[i].split(/\n/);
 			if (points.length == 3) {
+				//console.log(points);
 				var coordsOfAPoint = Array();
-				coordsOfAPoint[0]= points[0].split(" ");
-				coordsOfAPoint[1]= points[1].split(" ");
-				coordsOfAPoint[2]= points[2].split(" ");
+				coordsOfAPoint[0]= points[0].trim().split(" ");
+				coordsOfAPoint[1]= points[1].trim().split(" ");
+				coordsOfAPoint[2]= points[2].trim().split(" ");
+				
 				
 				if (coordsOfAPoint[0].length == 3 && coordsOfAPoint[1].length == 3 && coordsOfAPoint[1].length == 3) {
 					for (var p = 0; p < 3; p++) {
 						for (var c = 0; c < 3; c++) {
 							a.push(coordsOfAPoint[p][c]/1000);
 						}
+						
 					}
 					this.containerEntity.append(this.generateTriangle(a[0],a[2],a[1],a[3],a[5],a[4],a[6],a[8],a[7]));
 				}
 			}
 			
-			
-			
-			
-			
 		}
-
+		
 		//console.log(facets[4]);
+		console.log("stl-import completed");
 	}
+	
 
 }
 
@@ -93,8 +95,10 @@ $(function() {
 	stl = new Stl2Aframe('stlobject');
 	console.log("stl-import started");
 	stl.removeAllEntities();
-	stl.importStlFile("simple.stl");
-	console.log("stl-import completed");
+//	stl.importStlFile("simple.stl");
+	stl.importStlFile("medium.stl");
+//	stl.importStlFile("complex.stl");
+
 
 
 });
