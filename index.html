@@ -5,7 +5,8 @@
 	
 	<!--	<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
 
-	<script src="jquery-3.2.1.min.js"></script>
+	<script src="lib/jquery-3.2.1.min.js"></script>
+	<script src="lib/jquery.binarytransport.js"></script>
 	<script src="aframe-master.min.js"></script>
 	<script src="aframe-stlimport.js"></script>
 
@@ -21,11 +22,6 @@
 
 
 		<a-entity scale="1 1 1" position="0 1.5 -0.4" id="stlobject">
-	
-	  		<a-entity geometry="primitive: triangle; vertexA: 0 0 0; vertexB: 1 0 0; vertexC: 0 1 0;" material="color: #C0C0FF; side:double; metalness:0.8; roughness:0.8;"></a-entity>
-  			<a-entity geometry="primitive: triangle; vertexA: 0 0 1; vertexB: 1 0 0; vertexC: 0 1 0;" material="color: #C0C0FF; side:double; metalness:0.8; roughness:0.8;"></a-entity>
-  			<a-entity geometry="primitive: triangle; vertexA: 0 0 1; vertexB: 0 0 0; vertexC: 0 1 0;" material="color: #C0C0FF; side:double; metalness:0.8; roughness:0.8;"></a-entity>
-  	
   			<a-animation easing="linear" attribute="rotation" dur="30000" to="0 360 0" repeat="indefinite"></a-animation>
 		</a-entity>
 
