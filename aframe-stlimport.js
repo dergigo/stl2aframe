@@ -45,8 +45,8 @@ function Stl2Aframe(containerId) {
 		}, 'text');	
 	}
 
-	this.parseStlFile = function(stlFileContent) {
-		//console.log(stlFileContent);
+	this.splitStlFileContentToArrayOfStrings = function(stlFileContent) {
+		var resultArrayOfStrings = Array();
 		var facets = stlFileContent.split("endfacet");
 		for (var i = 0; i<facets.length; i++) {
 			facets[i] = facets[i].replace(/^\s+/gm, ""); 
@@ -56,11 +56,21 @@ function Stl2Aframe(containerId) {
 			facets[i] = facets[i].replace(/^vertex /gm, "");
 			facets[i] = facets[i].replace(/^\n/gm, "");
 			facets[i] = facets[i].replace(/\n$/, "");
-
 			
+			if (facets[i] != "") {resultArrayOfStrings.push(facets[i]);}
+		}
+		
+		return resultArrayOfStrings;	
+	}
+
+
+	this.parseStlFile = function(stlFileContent) {
+		//console.log(stlFileContent);
+		triangleCoordsAsStrings = this.splitStlFileContentToArrayOfStrings(stlFileContent);
+		for (var i = 0; i < triangleCoordsAsStrings.length; i++) {
 			var a = Array();
 			
-			var points = facets[i].split(/\n/);
+			var points = triangleCoordsAsStrings[i].split(/\n/);
 			if (points.length == 3) {
 				//console.log(points);
 				var coordsOfAPoint = Array();
