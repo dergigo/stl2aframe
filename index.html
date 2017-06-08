@@ -17,15 +17,15 @@
 </head>
 <body>
 	<!--div style="width:100%; height:2em;background-color:black;"></div-->
-	<a-scene>
+	<a-scene stats>
 		<a-assets>
 			<img src="hologrid.png" id="grid" crossorigin="anonymous">
       	</a-assets>
 
 
-		<a-entity position="0 1.5 -0.4" id="stlcontainer">
-			<a-entity scale="1 1 1" id="stlobject"></a-entity>
-  			<a-animation easing="linear" attribute="rotation" dur="30000" to="0 360 0" repeat="indefinite"></a-animation>
+		<a-entity position="0 1.5 -0.4" id="stlbox">
+			<a-entity scale="1 1 1" id="stlcontainer"></a-entity>
+  			<!--a-animation easing="linear" attribute="rotation" dur="30000" to="0 360 0" repeat="indefinite"></a-animation-->
 		</a-entity>
 
 		<a-entity position="0 0 -1" id="hologrid">

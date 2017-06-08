@@ -117,7 +117,7 @@ function Stl2Aframe(containerId) {
 var stl;
 
 $(function() {
-	stl = new Stl2Aframe('stlobject');
+	stl = new Stl2Aframe('stlcontainer');
 	console.log("stl-import started");
 	stl.removeAllEntities();
 //	stl.importStlFile("demostl/simple.stl");
