@@ -7,17 +7,7 @@ function Stl2Aframe(containerId) {
 			this.containerEntity.removeChild(els[i]);
 		}
 	}
-	
-	this.generateTestEntities = function() {
-		var testEntity;
-		testEntity = this.generateTriangle(1,0,0,0,1,0,0,0,1);
-		this.containerEntity.append(testEntity);
-		testEntity = this.generateTriangle(1,2,0,2,1,0,0,1,1);
-		this.containerEntity.append(testEntity);
-		testEntity = this.generateTriangle(1,2,0,0,1,0,0,1,1);
-		this.containerEntity.append(testEntity);
-	}
-	
+
 	this.generateTriangle = function(x1,y1,z1, x2, y2, z2, x3, y3, z3) {
 		myTriangle = document.createElement('a-entity');
 		
