@@ -45,6 +45,31 @@ function Stl2Aframe(containerId) {
 		}, 'text');	
 	}
 
+	this.importBinaryStlFile = function(myUrl) {
+		var typeSet = {
+		 'jBinary.littleEndian': true,
+		  header: ['array', 'uint8', 80],
+		  number: 'uint32',
+		  triangle: ['array', 'float32', 12],
+		  choord: 'float32',
+		  fnord: 'uint16'
+		};
+		
+		jBinary.load(myUrl, typeSet, function (err, binary) {
+		  
+		  binary.read('header');
+		  
+		  var numberOfTriangles = binary.read('number');
+		  for (var i = 0; i < numberOfTriangles; i++) {
+		    var a = binary.read('triangle');	
+   		    stl.containerEntity.append(stl.generateTriangle(a[3]/1000,a[5]/1000,a[4]/1000,a[6]/1000,a[8]/1000,a[7]/1000,a[9]/1000,a[11]/1000,a[10]/1000));
+   		    binary.read('fnord');
+		  }
+		 
+		  
+		});	
+	}
+
 	this.splitStlFileContentToArrayOfStrings = function(stlFileContent) {
 		var resultArrayOfStrings = Array();
 		var facets = stlFileContent.split("endfacet");
@@ -106,8 +131,10 @@ $(function() {
 	console.log("stl-import started");
 	stl.removeAllEntities();
 //	stl.importStlFile("simple.stl");
-	stl.importStlFile("medium.stl");
+//	stl.importStlFile("medium.stl");
 //	stl.importStlFile("complex.stl");
+
+	stl.importBinaryStlFile("binary.stl");
 
 
 
