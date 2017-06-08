@@ -130,12 +130,10 @@ $(function() {
 	stl = new Stl2Aframe('stlobject');
 	console.log("stl-import started");
 	stl.removeAllEntities();
-//	stl.importStlFile("simple.stl");
-//	stl.importStlFile("medium.stl");
-//	stl.importStlFile("complex.stl");
+//	stl.importStlFile("stl/simple.stl");
+//	stl.importStlFile("stl/medium.stl");
+//	stl.importStlFile("stl/complex.stl");
 
-	stl.importBinaryStlFile("binary.stl");
-
-
-
+	stl.importBinaryStlFile("stl/binary.stl");
+//	stl.importBinaryStlFile("stl/binary2.stl");
 });
