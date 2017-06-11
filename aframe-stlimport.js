@@ -35,8 +35,7 @@ function Stl2Aframe(containerId) {
 		}, 'text');	
 	}
 
-	this.importBinaryStlFile = function(myUrl) {
-		var typeSet = {
+	this.binaryStlTypeSet = {
 		 'jBinary.littleEndian': true,
 		  header: ['array', 'uint8', 80],
 		  number: 'uint32',
@@ -44,21 +43,37 @@ function Stl2Aframe(containerId) {
 		  choord: 'float32',
 		  fnord: 'uint16'
 		};
+
+	this.importBinaryStlFileFromUrl = function(myUrl) {
+		var typeSet = this.binaryStlTypeSet;
 		
 		jBinary.load(myUrl, typeSet, function (err, binary) {
-		  
-		  binary.read('header');
-		  
-		  var numberOfTriangles = binary.read('number');
-		  for (var i = 0; i < numberOfTriangles; i++) {
-		    var a = binary.read('triangle');	
-   		    stl.containerEntity.append(stl.generateTriangle(a[3]/1000,a[5]/1000,a[4]/1000,a[6]/1000,a[8]/1000,a[7]/1000,a[9]/1000,a[11]/1000,a[10]/1000));
-   		    binary.read('fnord');
-		  }
-		 
-		  
+			binary.read('header');
+			var numberOfTriangles = binary.read('number');
+			for (var i = 0; i < numberOfTriangles; i++) {
+				var a = binary.read('triangle');	
+				stl.containerEntity.append(stl.generateTriangle(a[3]/1000,a[5]/1000,a[4]/1000,a[6]/1000,a[8]/1000,a[7]/1000,a[9]/1000,a[11]/1000,a[10]/1000));
+				binary.read('fnord');
+			}
 		});	
 	}
+	
+	this.importBinaryStlFileFromArrayBuffer = function(myArrayBuffer) {
+		var typeSet = this.binaryStlTypeSet;
+		var binary = new jBinary(new jDataView(myArrayBuffer),typeSet);
+
+		console.log(binary);
+		binary.read('header');
+		var numberOfTriangles = binary.read('number');
+		for (var i = 0; i < numberOfTriangles; i++) {
+			var a = binary.read('triangle');	
+			this.containerEntity.append(this.generateTriangle(a[3]/1000,a[5]/1000,a[4]/1000,a[6]/1000,a[8]/1000,a[7]/1000,a[9]/1000,a[11]/1000,a[10]/1000));
+			binary.read('fnord');
+		}
+
+	}
+	
+	
 
 	this.splitStlFileContentToArrayOfStrings = function(stlFileContent) {
 		var resultArrayOfStrings = Array();
@@ -124,6 +139,6 @@ $(function() {
 //	stl.importStlFile("demostl/medium.stl");
 //	stl.importStlFile("demostl/complex.stl");
 
-	stl.importBinaryStlFile("demostl/binary.stl");
-//	stl.importBinaryStlFile("demostl/binary2.stl");
+	stl.importBinaryStlFileFromUrl("demostl/binary.stl");
+//	stl.importBinaryStlFileFromUrl("demostl/binary2.stl");
 });
