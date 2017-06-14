@@ -46,24 +46,24 @@ function Stl2Aframe(containerId) {
 
 	this.importBinaryStlFileFromUrl = function(myUrl) {
 		var typeSet = this.binaryStlTypeSet;
-		
+
+
+		//TODO: REFACTOR:		
 		jBinary.load(myUrl, typeSet, function (err, binary) {
-			binary.read('header');
-			var numberOfTriangles = binary.read('number');
-			for (var i = 0; i < numberOfTriangles; i++) {
-				var a = binary.read('triangle');	
-				stl.containerEntity.append(stl.generateTriangle(a[3]/1000,a[5]/1000,a[4]/1000,a[6]/1000,a[8]/1000,a[7]/1000,a[9]/1000,a[11]/1000,a[10]/1000));
-				binary.read('fnord');
-			}
+			stl.importBinaryStlFileFromArrayBuffer(binary.view._view.buffer);
 		});	
 	}
 	
 	this.importBinaryStlFileFromArrayBuffer = function(myArrayBuffer) {
 		var typeSet = this.binaryStlTypeSet;
-		var binary = new jBinary(new jDataView(myArrayBuffer),typeSet);
+		
+		var binary = new jBinary(new jDataView(myArrayBuffer,0,myArrayBuffer.byteLength, littleEndian = true),typeSet);
 
-		console.log(binary);
-		binary.read('header');
+		var header = binary.read('header');
+		
+		
+		//console.log(header);
+		
 		var numberOfTriangles = binary.read('number');
 		for (var i = 0; i < numberOfTriangles; i++) {
 			var a = binary.read('triangle');	

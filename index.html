@@ -37,9 +37,10 @@
 	
 	    var reader = new FileReader();
 	    reader.onload = function(){
-			stl.importBinaryStlFileFromUrl(reader.result);
+	    	stl.removeAllEntities();
+			stl.importBinaryStlFileFromArrayBuffer(reader.result);
 		};
-		reader.readAsDataURL(f);
+		reader.readAsArrayBuffer(f);
 	    }
 	  }
 	
